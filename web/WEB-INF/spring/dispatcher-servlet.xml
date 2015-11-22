@@ -19,6 +19,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<mvc:view-controller path="/" view-name="form"/>
 	<mvc:resources location="WEB-INF/resources/" mapping="/resources/**"></mvc:resources>
 
 
