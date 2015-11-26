@@ -2,39 +2,53 @@ package com.personal.expenses.controllers;
 
 import com.personal.expenses.models.Expense;
 import com.personal.expenses.models.JsonResponse;
+import com.personal.expenses.services.ExpenseService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class FirstController {
 
-    @RequestMapping("/home")
-         public String goHome(){
-        return "home";
+    @Autowired
+    ExpenseService expenseService;
+
+    final static Logger logger = Logger.getLogger(FirstController.class);
+
+    @RequestMapping("/index")
+    public String fillForm(Model model){
+        logger.info("\n" + "***************" + "\n" + "invoke fillForm()");
+        model.addAttribute("expense", new Expense());
+
+        return "index";
     }
 
-    @RequestMapping("/form")
-    public String fillForm(){
-
-        System.out.println("CONTROLLER FORM method");
-        return "form";
+    @RequestMapping("/{expenseId}")
+    public String showExpense(Model model, @PathVariable("expenseId") Long expenseId){
+        model.addAttribute("project", expenseService.find(expenseId));
+        return "expense";
     }
 
     @RequestMapping(value="/addExpense", method= RequestMethod.POST)
-    public @ResponseBody String addExpense(@ModelAttribute Expense expense){
+    public @ResponseBody String addExpense(@ModelAttribute Expense expense, BindingResult result){
+        logger.info("\n" + "***************" + "\n" + "invoke addExpense()");
 
-        //JsonResponse res = new JsonResponse();
+        if(!result.hasErrors()){
+            //if(expense != null){
+                expenseService.saveExpense(expense);
+            //}
+            return "SUCCESS";
+        }
 
-        //if(!result.hasErrors()){
-            System.out.println(expense);
-            //res.setStatus("SUCCESS");
-            //res.setResult(expense);
-        //}
-
-        return new String("SUCCESS");
+        return "FAIL";
     }
+
 }

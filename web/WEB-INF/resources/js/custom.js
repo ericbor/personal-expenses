@@ -11,7 +11,9 @@ function doAjaxPost() {
 
         success: function(){
             // we have the response
-            $('#info').html("Expense has been added");
+            $('#category_result').html(category);
+            $('#amount_result').html(amount);
+            $('#date_result').html(date);
 
         },
         error: function(e){

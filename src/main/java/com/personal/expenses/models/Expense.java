@@ -1,11 +1,17 @@
 package com.personal.expenses.models;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
 public class Expense {
 
     private String category;
     private String amount;
-    private String date;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
 
     public String getCategory() {
         return category;
@@ -23,11 +29,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
