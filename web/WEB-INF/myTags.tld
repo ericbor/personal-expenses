@@ -11,13 +11,23 @@
     <uri>http://example.com/tags</uri>
 
     <tag-file>
-        <name>form</name>
-        <path>/WEB-INF/tags/form.tag</path>
-    </tag-file>
+    <name>form_expense</name>
+    <path>/WEB-INF/tags/form_expense.tag</path>
+</tag-file>
 
     <tag-file>
         <name>diagram</name>
         <path>/WEB-INF/tags/diagram.tag</path>
+    </tag-file>
+
+    <tag-file>
+        <name>summary</name>
+        <path>/WEB-INF/tags/summary.tag</path>
+    </tag-file>
+
+    <tag-file>
+        <name>form_income</name>
+        <path>/WEB-INF/tags/form_income.tag</path>
     </tag-file>
 
 </taglib>
